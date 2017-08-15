@@ -1,6 +1,7 @@
 <template>
   <div class="greeting">
     <h1>Make your countdown!</h1>
+    <button class="create-countdown" @click="$router.push('/new/user')">Create Countdown</button>
   </div>
 </template>
 

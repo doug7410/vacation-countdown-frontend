@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
 
 let div
 
@@ -17,6 +19,7 @@ afterEach(() => {
 
 window.componentHelper = function (component) {
   return () => {
+    component.router = new VueRouter({})
     return new Vue(component).$mount(div)
   }
 }
