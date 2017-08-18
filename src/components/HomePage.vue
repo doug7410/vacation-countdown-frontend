@@ -20,6 +20,7 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+  font-size: 3.5em;
 }
 
 ul {
