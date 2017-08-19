@@ -1,9 +1,4 @@
 import NewUser from '@/components/NewUser'
-import Vue from 'vue'
-
-// (function ($) {
-//
-// })(jQuery)
 
 describe('NewUser.vue', () => {
   const mount = componentHelper(NewUser)
@@ -15,7 +10,7 @@ describe('NewUser.vue', () => {
     expect(document.activeElement.name).to.equal('user-name')
   })
 
-  it('should go to the next question after filling in the user name and clicking next', done => {
+  it('should ask the user for their name and go to vacation name next', done => {
     const vm = mount()
     $('input[name=user-name]').input('John')
     $('.next-question').click()
@@ -29,5 +24,26 @@ describe('NewUser.vue', () => {
       done()
     })
   }).timeout(100)
+
+  it('should ask for the vacation name after user name is entered and then go to vacation date', done => {
+    const vm = mount()
+    vm.$data.userName = 'John'
+    vm.$data.currentQuestion = 2
+
+    vm.$nextTick(() => {
+      $('input[name=vacation-name]').input('Iceland')
+      $('.next-question').click()
+
+      vm.$nextTick(() => {
+        expect($('.message').text()).to.contain('Iceland sounds awesome John! When are you leaving?')
+        expect($('input[name=user-name]')).not.to.be.visible
+        expect($('input[name=vacation-name]')).not.to.be.visible
+        expect($('input[name=vacation-date]')).to.be.visible
+        expect(vm.$data.currentQuestion).to.equal(3)
+        done()
+      })
+    })
+  }).timeout(100)
 })
+
 

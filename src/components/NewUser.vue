@@ -4,6 +4,7 @@
     <div class="inputs">
       <input type="text" name="user-name" v-model="userName" v-if="currentQuestion === 1" @keyup="keymonitor($event)">
       <input type="text" name="vacation-name" v-model="vacationName" v-if="currentQuestion === 2" @keyup="keymonitor($event)">
+      <input type="text" name="vacation-date" v-model="vacationDate" v-if="currentQuestion === 3" @keyup="keymonitor($event)">
     </div>
     <div class="nav">
       <button class="next-question" @click="nextQuestion()">Next</button>
@@ -18,6 +19,7 @@
         currentQuestion: 1,
         userName: null,
         vacationName: null,
+        vacationDate: null,
         question: 'Hello! What is your name?'
       }
     },
@@ -31,6 +33,14 @@
           this.currentQuestion = 2
           this.$nextTick(() => {
             document.getElementsByName('vacation-name')[0].focus()
+          })
+        }
+
+        if (this.userName && this.vacationName) {
+          this.question = `${this.vacationName} sounds awesome ${this.userName}! When are you leaving?`
+          this.currentQuestion = 3
+          this.$nextTick(() => {
+            document.getElementsByName('vacation-date')[0].focus()
           })
         }
       },
